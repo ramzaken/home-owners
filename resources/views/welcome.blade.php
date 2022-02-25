@@ -6,7 +6,7 @@
 
     <title>Home Owners</title>
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://pagsibol-ph2-home-owners.herokuapp.com/css/app.css" rel="stylesheet">
 </head>
 <body>
 <div id="app">
