@@ -1,0 +1,23 @@
+.center {
+	text-align: center;
+	display: block;
+	margin: 0;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.bolder {
+	font-weight: bolder;
+}
+
+.required {
+	color: red;
+	font-style: italic;
+	font-size: 10px;
+}
+
+.pull-right {
+	float: right;
+}
