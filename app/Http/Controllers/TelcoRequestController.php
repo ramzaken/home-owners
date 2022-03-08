@@ -6,9 +6,21 @@ use Image;
 use File;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class TelcoRequestController extends Controller
 {
+
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function getTelcoRequests(Request $request) {
         $result     =   TelcoRequest::getTelcoRequests();
         return response()->json($result);

@@ -28,3 +28,34 @@
             </div>
         </div>
 </template>
+<script>
+export default {
+    data: function() {
+        return {
+            name: '',
+        }
+    },
+    mounted()
+    {
+        this.checkUser();
+    },
+    components: {
+    },
+    computed: {
+
+    },
+    methods: {
+        checkUser(){
+            this.$ajaxPost(this.$cookies.get('access_token'), {}, '/api/auth/user', this.success, this.error)
+        },
+        success(response){
+            this.telco_requests     =   response.data
+        },
+        error(error){
+            this.$toast.error(error, {
+                position: 'top'
+            })
+        }
+    }
+}
+</script>

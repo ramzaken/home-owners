@@ -81,14 +81,15 @@ export default {
             e.preventDefault()
         },
         getTelcoRequests(){
-            axios.post('/api/telco-request/getTelcoRequests', {})
-            .then((response) => {
-                this.telco_requests     =   response.data
-            }).catch(error => {
-                this.$toast.error(error, {
-                    position: 'top'
-                })
-            });
+            this.$ajaxPost(this.$cookies.get('access_token'), {}, '/api/telco-request/getTelcoRequests', this.success, this.error)
+        },
+        success(response){
+            this.telco_requests     =   response
+        },
+        error(error){
+            this.$toast.error(error, {
+                position: 'top'
+            })
         }
     }
 }
