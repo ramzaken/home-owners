@@ -11,8 +11,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_signature__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-signature */ "./node_modules/vue-signature/src/main.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 //
 //
 //
@@ -63,51 +62,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      full_name: '',
-      block: '',
-      lot: '',
-      option: {
-        penColor: "#000000",
-        backgroundColor: "rgb(255,255,255)"
-      }
+      name: '',
+      password: ''
     };
   },
   validations: {
-    full_name: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required,
-      minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.minLength)(4)
+    name: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required,
+      minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.minLength)(4)
     },
-    block: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
-    },
-    lot: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__.required
+    password: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required,
+      minLength: (0,vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.minLength)(6)
     }
   },
   mounted: function mounted() {},
-  components: {
-    vueSignature: vue_signature__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
+  components: {},
   computed: {},
   methods: {
-    clear: function clear(e) {
-      this.$refs.signature.clear();
-      e.preventDefault();
-    },
-    undo: function undo(e) {
-      this.$refs.signature.undo();
-      e.preventDefault();
-    },
     submitSignUp: function submitSignUp(e) {
-      var _this = this;
-
       this.$v.$touch();
 
       if (this.$v.$invalid) {
@@ -115,138 +92,28 @@ __webpack_require__.r(__webpack_exports__);
           position: 'top'
         });
       } else {
-        setTimeout(function () {
-          var formData = new FormData();
-          formData.append('file', _this.$refs.signature.save());
-          formData.append('full_name', _this.full_name);
-          formData.append('block', _this.block);
-          formData.append('lot', _this.lot);
-          axios.post('/api/telco-request/submit', formData).then(function (response) {
-            _this.$toast.success('Your name has been listed.', {
-              position: 'top'
-            });
-
-            _this.$v.$touch();
-
-            _this.$v.$reset();
-
-            _this.$refs.signature.clear();
-
-            _this.full_name = '';
-            _this.block = '';
-            _this.lot = '';
-          })["catch"](function (error) {
-            _this.$toast.error(error, {
-              position: 'top'
-            });
-          });
-        }, 500);
+        var formData = {
+          name: this.name,
+          password: this.password
+        };
+        this.$ajaxPost(this.$cookies.get('access_token'), formData, '/api/auth/login', this.success, this.error);
       }
 
       e.preventDefault();
+    },
+    success: function success(response) {
+      this.$cookies.set('access_token', response.auth.original.access_token, '30D', '/');
+      setTimeout(function () {
+        window.location.href = '/';
+      }, 1500);
+    },
+    error: function error(_error) {
+      this.$toast.error(_error, {
+        position: 'top'
+      });
     }
   }
 });
-
-/***/ }),
-
-/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ncanvas {\n\twidth: 100%;\n\theight: 100%;\n}\n", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js ***!
-  \******************************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-// eslint-disable-next-line func-names
-module.exports = function (cssWithMappingToString) {
-  var list = []; // return the list of modules as css string
-
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = cssWithMappingToString(item);
-
-      if (item[2]) {
-        return "@media ".concat(item[2], " {").concat(content, "}");
-      }
-
-      return content;
-    }).join("");
-  }; // import a list of modules into the list
-  // eslint-disable-next-line func-names
-
-
-  list.i = function (modules, mediaQuery, dedupe) {
-    if (typeof modules === "string") {
-      // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, ""]];
-    }
-
-    var alreadyImportedModules = {};
-
-    if (dedupe) {
-      for (var i = 0; i < this.length; i++) {
-        // eslint-disable-next-line prefer-destructuring
-        var id = this[i][0];
-
-        if (id != null) {
-          alreadyImportedModules[id] = true;
-        }
-      }
-    }
-
-    for (var _i = 0; _i < modules.length; _i++) {
-      var item = [].concat(modules[_i]);
-
-      if (dedupe && alreadyImportedModules[item[0]]) {
-        // eslint-disable-next-line no-continue
-        continue;
-      }
-
-      if (mediaQuery) {
-        if (!item[2]) {
-          item[2] = mediaQuery;
-        } else {
-          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
-        }
-      }
-
-      list.push(item);
-    }
-  };
-
-  return list;
-};
 
 /***/ }),
 
@@ -444,1058 +311,6 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/signature_pad/dist/signature_pad.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/signature_pad/dist/signature_pad.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/*!
- * Signature Pad v3.0.0-beta.4 | https://github.com/szimek/signature_pad
- * (c) 2020 Szymon Nowak | Released under the MIT license
- */
-
-class Point {
-    constructor(x, y, time) {
-        this.x = x;
-        this.y = y;
-        this.time = time || Date.now();
-    }
-    distanceTo(start) {
-        return Math.sqrt(Math.pow(this.x - start.x, 2) + Math.pow(this.y - start.y, 2));
-    }
-    equals(other) {
-        return this.x === other.x && this.y === other.y && this.time === other.time;
-    }
-    velocityFrom(start) {
-        return this.time !== start.time
-            ? this.distanceTo(start) / (this.time - start.time)
-            : 0;
-    }
-}
-
-class Bezier {
-    constructor(startPoint, control2, control1, endPoint, startWidth, endWidth) {
-        this.startPoint = startPoint;
-        this.control2 = control2;
-        this.control1 = control1;
-        this.endPoint = endPoint;
-        this.startWidth = startWidth;
-        this.endWidth = endWidth;
-    }
-    static fromPoints(points, widths) {
-        const c2 = this.calculateControlPoints(points[0], points[1], points[2]).c2;
-        const c3 = this.calculateControlPoints(points[1], points[2], points[3]).c1;
-        return new Bezier(points[1], c2, c3, points[2], widths.start, widths.end);
-    }
-    static calculateControlPoints(s1, s2, s3) {
-        const dx1 = s1.x - s2.x;
-        const dy1 = s1.y - s2.y;
-        const dx2 = s2.x - s3.x;
-        const dy2 = s2.y - s3.y;
-        const m1 = { x: (s1.x + s2.x) / 2.0, y: (s1.y + s2.y) / 2.0 };
-        const m2 = { x: (s2.x + s3.x) / 2.0, y: (s2.y + s3.y) / 2.0 };
-        const l1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
-        const l2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-        const dxm = m1.x - m2.x;
-        const dym = m1.y - m2.y;
-        const k = l2 / (l1 + l2);
-        const cm = { x: m2.x + dxm * k, y: m2.y + dym * k };
-        const tx = s2.x - cm.x;
-        const ty = s2.y - cm.y;
-        return {
-            c1: new Point(m1.x + tx, m1.y + ty),
-            c2: new Point(m2.x + tx, m2.y + ty),
-        };
-    }
-    length() {
-        const steps = 10;
-        let length = 0;
-        let px;
-        let py;
-        for (let i = 0; i <= steps; i += 1) {
-            const t = i / steps;
-            const cx = this.point(t, this.startPoint.x, this.control1.x, this.control2.x, this.endPoint.x);
-            const cy = this.point(t, this.startPoint.y, this.control1.y, this.control2.y, this.endPoint.y);
-            if (i > 0) {
-                const xdiff = cx - px;
-                const ydiff = cy - py;
-                length += Math.sqrt(xdiff * xdiff + ydiff * ydiff);
-            }
-            px = cx;
-            py = cy;
-        }
-        return length;
-    }
-    point(t, start, c1, c2, end) {
-        return (start * (1.0 - t) * (1.0 - t) * (1.0 - t))
-            + (3.0 * c1 * (1.0 - t) * (1.0 - t) * t)
-            + (3.0 * c2 * (1.0 - t) * t * t)
-            + (end * t * t * t);
-    }
-}
-
-function throttle(fn, wait = 250) {
-    let previous = 0;
-    let timeout = null;
-    let result;
-    let storedContext;
-    let storedArgs;
-    const later = () => {
-        previous = Date.now();
-        timeout = null;
-        result = fn.apply(storedContext, storedArgs);
-        if (!timeout) {
-            storedContext = null;
-            storedArgs = [];
-        }
-    };
-    return function wrapper(...args) {
-        const now = Date.now();
-        const remaining = wait - (now - previous);
-        storedContext = this;
-        storedArgs = args;
-        if (remaining <= 0 || remaining > wait) {
-            if (timeout) {
-                clearTimeout(timeout);
-                timeout = null;
-            }
-            previous = now;
-            result = fn.apply(storedContext, storedArgs);
-            if (!timeout) {
-                storedContext = null;
-                storedArgs = [];
-            }
-        }
-        else if (!timeout) {
-            timeout = window.setTimeout(later, remaining);
-        }
-        return result;
-    };
-}
-
-class SignaturePad {
-    constructor(canvas, options = {}) {
-        this.canvas = canvas;
-        this.options = options;
-        this._handleMouseDown = (event) => {
-            if (event.which === 1) {
-                this._mouseButtonDown = true;
-                this._strokeBegin(event);
-            }
-        };
-        this._handleMouseMove = (event) => {
-            if (this._mouseButtonDown) {
-                this._strokeMoveUpdate(event);
-            }
-        };
-        this._handleMouseUp = (event) => {
-            if (event.which === 1 && this._mouseButtonDown) {
-                this._mouseButtonDown = false;
-                this._strokeEnd(event);
-            }
-        };
-        this._handleTouchStart = (event) => {
-            event.preventDefault();
-            if (event.targetTouches.length === 1) {
-                const touch = event.changedTouches[0];
-                this._strokeBegin(touch);
-            }
-        };
-        this._handleTouchMove = (event) => {
-            event.preventDefault();
-            const touch = event.targetTouches[0];
-            this._strokeMoveUpdate(touch);
-        };
-        this._handleTouchEnd = (event) => {
-            const wasCanvasTouched = event.target === this.canvas;
-            if (wasCanvasTouched) {
-                event.preventDefault();
-                const touch = event.changedTouches[0];
-                this._strokeEnd(touch);
-            }
-        };
-        this.velocityFilterWeight = options.velocityFilterWeight || 0.7;
-        this.minWidth = options.minWidth || 0.5;
-        this.maxWidth = options.maxWidth || 2.5;
-        this.throttle = ('throttle' in options ? options.throttle : 16);
-        this.minDistance = ('minDistance' in options
-            ? options.minDistance
-            : 5);
-        this.dotSize =
-            options.dotSize ||
-                function dotSize() {
-                    return (this.minWidth + this.maxWidth) / 2;
-                };
-        this.penColor = options.penColor || 'black';
-        this.backgroundColor = options.backgroundColor || 'rgba(0,0,0,0)';
-        this.onBegin = options.onBegin;
-        this.onEnd = options.onEnd;
-        this._strokeMoveUpdate = this.throttle
-            ? throttle(SignaturePad.prototype._strokeUpdate, this.throttle)
-            : SignaturePad.prototype._strokeUpdate;
-        this._ctx = canvas.getContext('2d');
-        this.clear();
-        this.on();
-    }
-    clear() {
-        const { _ctx: ctx, canvas } = this;
-        ctx.fillStyle = this.backgroundColor;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        this._data = [];
-        this._reset();
-        this._isEmpty = true;
-    }
-    fromDataURL(dataUrl, options = {}, callback) {
-        const image = new Image();
-        const ratio = options.ratio || window.devicePixelRatio || 1;
-        const width = options.width || this.canvas.width / ratio;
-        const height = options.height || this.canvas.height / ratio;
-        this._reset();
-        image.onload = () => {
-            this._ctx.drawImage(image, 0, 0, width, height);
-            if (callback) {
-                callback();
-            }
-        };
-        image.onerror = (error) => {
-            if (callback) {
-                callback(error);
-            }
-        };
-        image.src = dataUrl;
-        this._isEmpty = false;
-    }
-    toDataURL(type = 'image/png', encoderOptions) {
-        switch (type) {
-            case 'image/svg+xml':
-                return this._toSVG();
-            default:
-                return this.canvas.toDataURL(type, encoderOptions);
-        }
-    }
-    on() {
-        this.canvas.style.touchAction = 'none';
-        this.canvas.style.msTouchAction = 'none';
-        if (window.PointerEvent) {
-            this._handlePointerEvents();
-        }
-        else {
-            this._handleMouseEvents();
-            if ('ontouchstart' in window) {
-                this._handleTouchEvents();
-            }
-        }
-    }
-    off() {
-        this.canvas.style.touchAction = 'auto';
-        this.canvas.style.msTouchAction = 'auto';
-        this.canvas.removeEventListener('pointerdown', this._handleMouseDown);
-        this.canvas.removeEventListener('pointermove', this._handleMouseMove);
-        document.removeEventListener('pointerup', this._handleMouseUp);
-        this.canvas.removeEventListener('mousedown', this._handleMouseDown);
-        this.canvas.removeEventListener('mousemove', this._handleMouseMove);
-        document.removeEventListener('mouseup', this._handleMouseUp);
-        this.canvas.removeEventListener('touchstart', this._handleTouchStart);
-        this.canvas.removeEventListener('touchmove', this._handleTouchMove);
-        this.canvas.removeEventListener('touchend', this._handleTouchEnd);
-    }
-    isEmpty() {
-        return this._isEmpty;
-    }
-    fromData(pointGroups) {
-        this.clear();
-        this._fromData(pointGroups, ({ color, curve }) => this._drawCurve({ color, curve }), ({ color, point }) => this._drawDot({ color, point }));
-        this._data = pointGroups;
-    }
-    toData() {
-        return this._data;
-    }
-    _strokeBegin(event) {
-        const newPointGroup = {
-            color: this.penColor,
-            points: [],
-        };
-        if (typeof this.onBegin === 'function') {
-            this.onBegin(event);
-        }
-        this._data.push(newPointGroup);
-        this._reset();
-        this._strokeUpdate(event);
-    }
-    _strokeUpdate(event) {
-        if (this._data.length === 0) {
-            this._strokeBegin(event);
-            return;
-        }
-        const x = event.clientX;
-        const y = event.clientY;
-        const point = this._createPoint(x, y);
-        const lastPointGroup = this._data[this._data.length - 1];
-        const lastPoints = lastPointGroup.points;
-        const lastPoint = lastPoints.length > 0 && lastPoints[lastPoints.length - 1];
-        const isLastPointTooClose = lastPoint
-            ? point.distanceTo(lastPoint) <= this.minDistance
-            : false;
-        const color = lastPointGroup.color;
-        if (!lastPoint || !(lastPoint && isLastPointTooClose)) {
-            const curve = this._addPoint(point);
-            if (!lastPoint) {
-                this._drawDot({ color, point });
-            }
-            else if (curve) {
-                this._drawCurve({ color, curve });
-            }
-            lastPoints.push({
-                time: point.time,
-                x: point.x,
-                y: point.y,
-            });
-        }
-    }
-    _strokeEnd(event) {
-        this._strokeUpdate(event);
-        if (typeof this.onEnd === 'function') {
-            this.onEnd(event);
-        }
-    }
-    _handlePointerEvents() {
-        this._mouseButtonDown = false;
-        this.canvas.addEventListener('pointerdown', this._handleMouseDown);
-        this.canvas.addEventListener('pointermove', this._handleMouseMove);
-        document.addEventListener('pointerup', this._handleMouseUp);
-    }
-    _handleMouseEvents() {
-        this._mouseButtonDown = false;
-        this.canvas.addEventListener('mousedown', this._handleMouseDown);
-        this.canvas.addEventListener('mousemove', this._handleMouseMove);
-        document.addEventListener('mouseup', this._handleMouseUp);
-    }
-    _handleTouchEvents() {
-        this.canvas.addEventListener('touchstart', this._handleTouchStart);
-        this.canvas.addEventListener('touchmove', this._handleTouchMove);
-        this.canvas.addEventListener('touchend', this._handleTouchEnd);
-    }
-    _reset() {
-        this._lastPoints = [];
-        this._lastVelocity = 0;
-        this._lastWidth = (this.minWidth + this.maxWidth) / 2;
-        this._ctx.fillStyle = this.penColor;
-    }
-    _createPoint(x, y) {
-        const rect = this.canvas.getBoundingClientRect();
-        return new Point(x - rect.left, y - rect.top, new Date().getTime());
-    }
-    _addPoint(point) {
-        const { _lastPoints } = this;
-        _lastPoints.push(point);
-        if (_lastPoints.length > 2) {
-            if (_lastPoints.length === 3) {
-                _lastPoints.unshift(_lastPoints[0]);
-            }
-            const widths = this._calculateCurveWidths(_lastPoints[1], _lastPoints[2]);
-            const curve = Bezier.fromPoints(_lastPoints, widths);
-            _lastPoints.shift();
-            return curve;
-        }
-        return null;
-    }
-    _calculateCurveWidths(startPoint, endPoint) {
-        const velocity = this.velocityFilterWeight * endPoint.velocityFrom(startPoint) +
-            (1 - this.velocityFilterWeight) * this._lastVelocity;
-        const newWidth = this._strokeWidth(velocity);
-        const widths = {
-            end: newWidth,
-            start: this._lastWidth,
-        };
-        this._lastVelocity = velocity;
-        this._lastWidth = newWidth;
-        return widths;
-    }
-    _strokeWidth(velocity) {
-        return Math.max(this.maxWidth / (velocity + 1), this.minWidth);
-    }
-    _drawCurveSegment(x, y, width) {
-        const ctx = this._ctx;
-        ctx.moveTo(x, y);
-        ctx.arc(x, y, width, 0, 2 * Math.PI, false);
-        this._isEmpty = false;
-    }
-    _drawCurve({ color, curve }) {
-        const ctx = this._ctx;
-        const widthDelta = curve.endWidth - curve.startWidth;
-        const drawSteps = Math.floor(curve.length()) * 2;
-        ctx.beginPath();
-        ctx.fillStyle = color;
-        for (let i = 0; i < drawSteps; i += 1) {
-            const t = i / drawSteps;
-            const tt = t * t;
-            const ttt = tt * t;
-            const u = 1 - t;
-            const uu = u * u;
-            const uuu = uu * u;
-            let x = uuu * curve.startPoint.x;
-            x += 3 * uu * t * curve.control1.x;
-            x += 3 * u * tt * curve.control2.x;
-            x += ttt * curve.endPoint.x;
-            let y = uuu * curve.startPoint.y;
-            y += 3 * uu * t * curve.control1.y;
-            y += 3 * u * tt * curve.control2.y;
-            y += ttt * curve.endPoint.y;
-            const width = Math.min(curve.startWidth + ttt * widthDelta, this.maxWidth);
-            this._drawCurveSegment(x, y, width);
-        }
-        ctx.closePath();
-        ctx.fill();
-    }
-    _drawDot({ color, point, }) {
-        const ctx = this._ctx;
-        const width = typeof this.dotSize === 'function' ? this.dotSize() : this.dotSize;
-        ctx.beginPath();
-        this._drawCurveSegment(point.x, point.y, width);
-        ctx.closePath();
-        ctx.fillStyle = color;
-        ctx.fill();
-    }
-    _fromData(pointGroups, drawCurve, drawDot) {
-        for (const group of pointGroups) {
-            const { color, points } = group;
-            if (points.length > 1) {
-                for (let j = 0; j < points.length; j += 1) {
-                    const basicPoint = points[j];
-                    const point = new Point(basicPoint.x, basicPoint.y, basicPoint.time);
-                    this.penColor = color;
-                    if (j === 0) {
-                        this._reset();
-                    }
-                    const curve = this._addPoint(point);
-                    if (curve) {
-                        drawCurve({ color, curve });
-                    }
-                }
-            }
-            else {
-                this._reset();
-                drawDot({
-                    color,
-                    point: points[0],
-                });
-            }
-        }
-    }
-    _toSVG() {
-        const pointGroups = this._data;
-        const ratio = Math.max(window.devicePixelRatio || 1, 1);
-        const minX = 0;
-        const minY = 0;
-        const maxX = this.canvas.width / ratio;
-        const maxY = this.canvas.height / ratio;
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('width', this.canvas.width.toString());
-        svg.setAttribute('height', this.canvas.height.toString());
-        this._fromData(pointGroups, ({ color, curve }) => {
-            const path = document.createElement('path');
-            if (!isNaN(curve.control1.x) &&
-                !isNaN(curve.control1.y) &&
-                !isNaN(curve.control2.x) &&
-                !isNaN(curve.control2.y)) {
-                const attr = `M ${curve.startPoint.x.toFixed(3)},${curve.startPoint.y.toFixed(3)} ` +
-                    `C ${curve.control1.x.toFixed(3)},${curve.control1.y.toFixed(3)} ` +
-                    `${curve.control2.x.toFixed(3)},${curve.control2.y.toFixed(3)} ` +
-                    `${curve.endPoint.x.toFixed(3)},${curve.endPoint.y.toFixed(3)}`;
-                path.setAttribute('d', attr);
-                path.setAttribute('stroke-width', (curve.endWidth * 2.25).toFixed(3));
-                path.setAttribute('stroke', color);
-                path.setAttribute('fill', 'none');
-                path.setAttribute('stroke-linecap', 'round');
-                svg.appendChild(path);
-            }
-        }, ({ color, point }) => {
-            const circle = document.createElement('circle');
-            const dotSize = typeof this.dotSize === 'function' ? this.dotSize() : this.dotSize;
-            circle.setAttribute('r', dotSize.toString());
-            circle.setAttribute('cx', point.x.toString());
-            circle.setAttribute('cy', point.y.toString());
-            circle.setAttribute('fill', color);
-            svg.appendChild(circle);
-        });
-        const prefix = 'data:image/svg+xml;base64,';
-        const header = '<svg' +
-            ' xmlns="http://www.w3.org/2000/svg"' +
-            ' xmlns:xlink="http://www.w3.org/1999/xlink"' +
-            ` viewBox="${minX} ${minY} ${maxX} ${maxY}"` +
-            ` width="${maxX}"` +
-            ` height="${maxY}"` +
-            '>';
-        let body = svg.innerHTML;
-        if (body === undefined) {
-            const dummy = document.createElement('dummy');
-            const nodes = svg.childNodes;
-            dummy.innerHTML = '';
-            for (let i = 0; i < nodes.length; i += 1) {
-                dummy.appendChild(nodes[i].cloneNode(true));
-            }
-            body = dummy.innerHTML;
-        }
-        const footer = '</svg>';
-        const data = header + body + footer;
-        return prefix + btoa(data);
-    }
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SignaturePad);
-//# sourceMappingURL=signature_pad.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../vue-loader/lib/loaders/stylePostLoader.js!../../../postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../vue-loader/lib/index.js??vue-loader-options!./vueSignature.vue?vue&type=style&index=0&lang=css& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css&");
-
-            
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
-  \****************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var isOldIE = function isOldIE() {
-  var memo;
-  return function memorize() {
-    if (typeof memo === 'undefined') {
-      // Test for IE <= 9 as proposed by Browserhacks
-      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-      // Tests for existence of standard globals is to allow style-loader
-      // to operate correctly into non-standard environments
-      // @see https://github.com/webpack-contrib/style-loader/issues/177
-      memo = Boolean(window && document && document.all && !window.atob);
-    }
-
-    return memo;
-  };
-}();
-
-var getTarget = function getTarget() {
-  var memo = {};
-  return function memorize(target) {
-    if (typeof memo[target] === 'undefined') {
-      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself
-
-      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-        try {
-          // This will throw an exception if access to iframe is blocked
-          // due to cross-origin restrictions
-          styleTarget = styleTarget.contentDocument.head;
-        } catch (e) {
-          // istanbul ignore next
-          styleTarget = null;
-        }
-      }
-
-      memo[target] = styleTarget;
-    }
-
-    return memo[target];
-  };
-}();
-
-var stylesInDom = [];
-
-function getIndexByIdentifier(identifier) {
-  var result = -1;
-
-  for (var i = 0; i < stylesInDom.length; i++) {
-    if (stylesInDom[i].identifier === identifier) {
-      result = i;
-      break;
-    }
-  }
-
-  return result;
-}
-
-function modulesToDom(list, options) {
-  var idCountMap = {};
-  var identifiers = [];
-
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i];
-    var id = options.base ? item[0] + options.base : item[0];
-    var count = idCountMap[id] || 0;
-    var identifier = "".concat(id, " ").concat(count);
-    idCountMap[id] = count + 1;
-    var index = getIndexByIdentifier(identifier);
-    var obj = {
-      css: item[1],
-      media: item[2],
-      sourceMap: item[3]
-    };
-
-    if (index !== -1) {
-      stylesInDom[index].references++;
-      stylesInDom[index].updater(obj);
-    } else {
-      stylesInDom.push({
-        identifier: identifier,
-        updater: addStyle(obj, options),
-        references: 1
-      });
-    }
-
-    identifiers.push(identifier);
-  }
-
-  return identifiers;
-}
-
-function insertStyleElement(options) {
-  var style = document.createElement('style');
-  var attributes = options.attributes || {};
-
-  if (typeof attributes.nonce === 'undefined') {
-    var nonce =  true ? __webpack_require__.nc : 0;
-
-    if (nonce) {
-      attributes.nonce = nonce;
-    }
-  }
-
-  Object.keys(attributes).forEach(function (key) {
-    style.setAttribute(key, attributes[key]);
-  });
-
-  if (typeof options.insert === 'function') {
-    options.insert(style);
-  } else {
-    var target = getTarget(options.insert || 'head');
-
-    if (!target) {
-      throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
-    }
-
-    target.appendChild(style);
-  }
-
-  return style;
-}
-
-function removeStyleElement(style) {
-  // istanbul ignore if
-  if (style.parentNode === null) {
-    return false;
-  }
-
-  style.parentNode.removeChild(style);
-}
-/* istanbul ignore next  */
-
-
-var replaceText = function replaceText() {
-  var textStore = [];
-  return function replace(index, replacement) {
-    textStore[index] = replacement;
-    return textStore.filter(Boolean).join('\n');
-  };
-}();
-
-function applyToSingletonTag(style, index, remove, obj) {
-  var css = remove ? '' : obj.media ? "@media ".concat(obj.media, " {").concat(obj.css, "}") : obj.css; // For old IE
-
-  /* istanbul ignore if  */
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = replaceText(index, css);
-  } else {
-    var cssNode = document.createTextNode(css);
-    var childNodes = style.childNodes;
-
-    if (childNodes[index]) {
-      style.removeChild(childNodes[index]);
-    }
-
-    if (childNodes.length) {
-      style.insertBefore(cssNode, childNodes[index]);
-    } else {
-      style.appendChild(cssNode);
-    }
-  }
-}
-
-function applyToTag(style, options, obj) {
-  var css = obj.css;
-  var media = obj.media;
-  var sourceMap = obj.sourceMap;
-
-  if (media) {
-    style.setAttribute('media', media);
-  } else {
-    style.removeAttribute('media');
-  }
-
-  if (sourceMap && typeof btoa !== 'undefined') {
-    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
-  } // For old IE
-
-  /* istanbul ignore if  */
-
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    while (style.firstChild) {
-      style.removeChild(style.firstChild);
-    }
-
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var singleton = null;
-var singletonCounter = 0;
-
-function addStyle(obj, options) {
-  var style;
-  var update;
-  var remove;
-
-  if (options.singleton) {
-    var styleIndex = singletonCounter++;
-    style = singleton || (singleton = insertStyleElement(options));
-    update = applyToSingletonTag.bind(null, style, styleIndex, false);
-    remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-  } else {
-    style = insertStyleElement(options);
-    update = applyToTag.bind(null, style, options);
-
-    remove = function remove() {
-      removeStyleElement(style);
-    };
-  }
-
-  update(obj);
-  return function updateStyle(newObj) {
-    if (newObj) {
-      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
-        return;
-      }
-
-      update(obj = newObj);
-    } else {
-      remove();
-    }
-  };
-}
-
-module.exports = function (list, options) {
-  options = options || {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-  // tags it will allow on a page
-
-  if (!options.singleton && typeof options.singleton !== 'boolean') {
-    options.singleton = isOldIE();
-  }
-
-  list = list || [];
-  var lastIdentifiers = modulesToDom(list, options);
-  return function update(newList) {
-    newList = newList || [];
-
-    if (Object.prototype.toString.call(newList) !== '[object Array]') {
-      return;
-    }
-
-    for (var i = 0; i < lastIdentifiers.length; i++) {
-      var identifier = lastIdentifiers[i];
-      var index = getIndexByIdentifier(identifier);
-      stylesInDom[index].references--;
-    }
-
-    var newLastIdentifiers = modulesToDom(newList, options);
-
-    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
-      var _identifier = lastIdentifiers[_i];
-
-      var _index = getIndexByIdentifier(_identifier);
-
-      if (stylesInDom[_index].references === 0) {
-        stylesInDom[_index].updater();
-
-        stylesInDom.splice(_index, 1);
-      }
-    }
-
-    lastIdentifiers = newLastIdentifiers;
-  };
-};
-
-/***/ }),
-
-/***/ "./node_modules/vue-signature/src/components/vueSignature.vue":
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-signature/src/components/vueSignature.vue ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _vueSignature_vue_vue_type_template_id_9f62afaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vueSignature.vue?vue&type=template&id=9f62afaa& */ "./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=template&id=9f62afaa&");
-/* harmony import */ var _vueSignature_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vueSignature.vue?vue&type=script&lang=js& */ "./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=script&lang=js&");
-/* harmony import */ var _vueSignature_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vueSignature.vue?vue&type=style&index=0&lang=css& */ "./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _vueSignature_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _vueSignature_vue_vue_type_template_id_9f62afaa___WEBPACK_IMPORTED_MODULE_0__.render,
-  _vueSignature_vue_vue_type_template_id_9f62afaa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "node_modules/vue-signature/src/components/vueSignature.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var signature_pad__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! signature_pad */ "./node_modules/signature_pad/dist/signature_pad.js");
-//
-//
-//
-//
-//
-//
-
-	
-	/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-		name:"vueSignature",
-		props:{
-			sigOption: {
-				type:Object,
-				default:()=>{
-					return {
-						backgroundColor:'rgb(255,255,255)',
-						penColor : 'rgb(0, 0, 0)'
-					}
-				},
-			},
-			w:{
-				type:String,
-				default:"100%"
-			},
-			h:{
-				type:String,
-				default:"100%"
-			},
-			clearOnResize:{
-				type:Boolean,
-				default:false
-			},
-			waterMark:{
-				type:Object,
-				default:()=>{
-					return {}
-				}
-			},
-			disabled:{
-				type:Boolean,
-				default:false
-			},
-			defaultUrl:{
-				type:String,
-				default:""
-			}
-		},
-		data(){
-			return {
-				sig:()=>{},
-				option:{
-					backgroundColor:'rgb(255,255,255)',
-					penColor : 'rgb(0, 0, 0)'
-				},
-				uid:""
-			}
-		},
-		watch:{
-			disabled(val){
-				var _this = this
-				if (_this.sig.off) {
-					if (val) {
-						_this.sig.off()
-					} else {
-						_this.sig.on()
-					}
-				}
-			}
-		},
-		created(){
-			var _this = this;
-			this.uid = "canvas" + _this._uid
-			var sigOptions = Object.keys(_this.sigOption);
-			for(var item of sigOptions){
-				_this.option[item] = _this.sigOption[item]
-			}
-		},
-		methods:{
-			draw(){
-				var _this = this;
-				var canvas = document.getElementById(_this.uid)
-				_this.sig = new signature_pad__WEBPACK_IMPORTED_MODULE_0__["default"](canvas,_this.option);
-				
-				function resizeCanvas(c) {
-					var url;
-					if(!_this.isEmpty()){
-						url = _this.save();
-					}
-					var ratio =  Math.max(window.devicePixelRatio || 1, 1);
-					c.width = _this.w.replace(/px|%/g,"") * ratio;
-    				c.height = _this.h.replace(/px|%/g,"") * ratio;
-					c.getContext("2d").scale(ratio, ratio);
-					_this.clear();
-					!_this.clearOnResize && url !== undefined && _this.fromDataURL(url)
-					Object.keys(_this.waterMark).length && _this.addWaterMark(_this.waterMark)
-				}
-				window.addEventListener("resize", resizeCanvas(canvas));
-				resizeCanvas(canvas);
-
-				if (_this.defaultUrl !== ""){
-					_this.fromDataURL(_this.defaultUrl);
-				}
-
-				if (_this.disabled) {
-					_this.sig.off();
-				} else {
-					_this.sig.on();
-				}
-			},
-			clear(){
-				var _this = this;
-				_this.sig.clear();
-			},
-			save(format){
-				var _this = this;
-				return format ? _this.sig.toDataURL(format) :  _this.sig.toDataURL()
-				// signaturePad.toDataURL(); // save image as PNG
-				// signaturePad.toDataURL("image/jpeg"); // save image as JPEG
-				// signaturePad.toDataURL("image/svg+xml"); // save image as SVG
-			},
-			fromDataURL(url){
-				var _this = this;
-				_this.sig.fromDataURL(url)
-			},
-			isEmpty(){
-				var _this = this;
-				return _this.sig.isEmpty();
-			},
-			undo(){
-				var _this = this;
-				var data = _this.sig.toData();
-				if(data){
-					data.pop()
-					_this.sig.fromData(data);
-				}
-			},
-			addWaterMark(data){
-				var _this = this;
-				if(!(Object.prototype.toString.call(data) == '[object Object]')){
-					throw new Error("Expected Object, got "+typeof data+".")
-				}else{
-					var vCanvas = document.getElementById(_this.uid);
-
-					var textData = {
-							text:data.text || '',
-							x:data.x || 20,
-							y:data.y || 20,
-							sx:data.sx || 40,
-							sy:data.sy || 40
-						}
-						
-					var ctx = vCanvas.getContext('2d');
-						ctx.font = data.font || '20px sans-serif';
-						ctx.fillStyle = data.fillStyle || "#333";
-						ctx.strokeStyle = data.strokeStyle || "#333";    
-    					if(data.style == 'all'){
-							ctx.fillText(textData.text,textData.x,textData.y);
-							ctx.strokeText(textData.text,textData.sx,textData.sx);
-						}else if(data.style == 'stroke'){
-							ctx.strokeText(textData.text,textData.sx,textData.sx);
-						}else{
-							ctx.fillText(textData.text,textData.x,textData.y);
-						}
-
-					_this.sig._isEmpty = false
-				}
-			}
-		},
-		mounted(){
-			var _this = this;
-			this.$nextTick().then(() => {
-				_this.draw()
-			});
-		}
-	});
-
-
-/***/ }),
-
 /***/ "./resources/js/components/Auth/Login.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/Auth/Login.vue ***!
@@ -1551,52 +366,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css&":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css& ***!
-  \*****************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _style_loader_dist_cjs_js_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../style-loader/dist/cjs.js!../../../laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../vue-loader/lib/loaders/stylePostLoader.js!../../../postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../vue-loader/lib/index.js??vue-loader-options!./vueSignature.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=style&index=0&lang=css&");
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../vue-loader/lib/index.js??vue-loader-options!./vueSignature.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=template&id=9f62afaa&":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=template&id=9f62afaa& ***!
-  \***************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_template_id_9f62afaa___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_template_id_9f62afaa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_vueSignature_vue_vue_type_template_id_9f62afaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../vue-loader/lib/index.js??vue-loader-options!./vueSignature.vue?vue&type=template&id=9f62afaa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=template&id=9f62afaa&");
-
-
-/***/ }),
-
 /***/ "./resources/js/components/Auth/Login.vue?vue&type=template&id=06688fcd&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/Auth/Login.vue?vue&type=template&id=06688fcd& ***!
@@ -1610,47 +379,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_06688fcd___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_06688fcd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=template&id=06688fcd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Auth/Login.vue?vue&type=template&id=06688fcd&");
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=template&id=9f62afaa&":
-/*!******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./node_modules/vue-signature/src/components/vueSignature.vue?vue&type=template&id=9f62afaa& ***!
-  \******************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      style: { width: _vm.w, height: _vm.h },
-      on: {
-        touchmove: function ($event) {
-          $event.preventDefault()
-        },
-      },
-    },
-    [
-      _c("canvas", {
-        staticClass: "canvas",
-        attrs: { id: _vm.uid, "data-uid": _vm.uid, disabled: _vm.disabled },
-      }),
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
 
 
 /***/ }),
@@ -1671,201 +399,198 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "offset-lg-4 col-lg-4 offset-md-3 col-md-6" }, [
-      _c("form", { attrs: { id: "telco-request-form" } }, [
-        _c("div", { staticClass: "row mb-3" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model.trim",
-                  value: _vm.$v.full_name.$model,
-                  expression: "$v.full_name.$model",
-                  modifiers: { trim: true },
-                },
-              ],
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                name: "full_name",
-                placeholder: "John Doe",
-              },
-              domProps: { value: _vm.$v.full_name.$model },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(
-                    _vm.$v.full_name,
-                    "$model",
-                    $event.target.value.trim()
-                  )
-                },
-                blur: function ($event) {
-                  return _vm.$forceUpdate()
-                },
-              },
-            }),
-            _vm._v(" "),
-            _vm.$v.full_name.$dirty
-              ? _c("div", [
-                  !_vm.$v.full_name.required
-                    ? _c("div", { staticClass: "required" }, [
-                        _vm._v("Field is required"),
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.$v.full_name.minLength
-                    ? _c("div", { staticClass: "required" }, [
-                        _vm._v(
-                          "Name must have at least " +
-                            _vm._s(_vm.$v.full_name.$params.minLength.min) +
-                            " letters."
-                        ),
-                      ])
-                    : _vm._e(),
-                ])
-              : _vm._e(),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row mb-3" }, [
-          _c("div", { staticClass: "col-4" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model.trim",
-                  value: _vm.$v.block.$model,
-                  expression: "$v.block.$model",
-                  modifiers: { trim: true },
-                },
-              ],
-              staticClass: "form-control",
-              attrs: { type: "number", name: "block" },
-              domProps: { value: _vm.$v.block.$model },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.$v.block, "$model", $event.target.value.trim())
-                },
-                blur: function ($event) {
-                  return _vm.$forceUpdate()
-                },
-              },
-            }),
-            _vm._v(" "),
-            _vm.$v.block.$dirty
-              ? _c("div", [
-                  !_vm.$v.block.required
-                    ? _c("div", { staticClass: "required" }, [
-                        _vm._v("Field is required"),
-                      ])
-                    : _vm._e(),
-                ])
-              : _vm._e(),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-4" }, [
-            _vm._m(2),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model.trim",
-                  value: _vm.$v.lot.$model,
-                  expression: "$v.lot.$model",
-                  modifiers: { trim: true },
-                },
-              ],
-              staticClass: "form-control",
-              attrs: { type: "number", name: "lot" },
-              domProps: { value: _vm.$v.lot.$model },
-              on: {
-                input: function ($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.$v.lot, "$model", $event.target.value.trim())
-                },
-                blur: function ($event) {
-                  return _vm.$forceUpdate()
-                },
-              },
-            }),
-            _vm._v(" "),
-            _vm.$v.lot.$dirty
-              ? _c("div", [
-                  !_vm.$v.lot.required
-                    ? _c("div", { staticClass: "required" }, [
-                        _vm._v("Field is required"),
-                      ])
-                    : _vm._e(),
-                ])
-              : _vm._e(),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row mb-3" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row mb-4" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
           _c(
-            "div",
-            { staticClass: "col-12" },
+            "ol",
+            { staticClass: "breadcrumb" },
             [
-              _vm._m(3),
+              _c(
+                "li",
+                {
+                  staticClass: "breadcrumb-item active",
+                  attrs: { "aria-current": "page" },
+                },
+                [_vm._v("Login")]
+              ),
               _vm._v(" "),
-              _c("vueSignature", {
-                ref: "signature",
-                staticClass: "mb-2",
-                attrs: { sigOption: _vm.option, w: "300px", h: "200px" },
+              _c("router-link", {
+                attrs: { to: { name: "register" } },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function (ref) {
+                      var href = ref.href
+                      var navigate = ref.navigate
+                      return [
+                        _c("li", { staticClass: "breadcrumb-item" }, [
+                          _c(
+                            "a",
+                            { attrs: { href: href }, on: { click: navigate } },
+                            [_vm._v("Register")]
+                          ),
+                        ]),
+                      ]
+                    },
+                  },
+                ]),
               }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-sm btn-secondary",
-                  on: { click: _vm.clear },
-                },
-                [_vm._v("Clear")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-sm btn-warning",
-                  on: { click: _vm.undo },
-                },
-                [_vm._v("Undo")]
-              ),
             ],
             1
           ),
         ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row p-2" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-sm btn-success",
-              attrs: { type: "submit" },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.submitSignUp.apply(null, arguments)
+      ]),
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "offset-lg-2 col-lg-8 offset-md-2 col-md-8" }, [
+        _c("form", { attrs: { id: "login-form" } }, [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 col-sm-6 col-md-6 col-lg-6 mb-3" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.$v.name.$model,
+                      expression: "$v.name.$model",
+                      modifiers: { trim: true },
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "name",
+                    placeholder: "john.doe",
+                  },
+                  domProps: { value: _vm.$v.name.$model },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.$v.name,
+                        "$model",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function ($event) {
+                      return _vm.$forceUpdate()
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _vm.$v.name.$dirty
+                  ? _c("div", [
+                      !_vm.$v.name.required
+                        ? _c("div", { staticClass: "required" }, [
+                            _vm._v("Field is required"),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.$v.name.minLength
+                        ? _c("div", { staticClass: "required" }, [
+                            _vm._v(
+                              "Username must have at least " +
+                                _vm._s(_vm.$v.name.$params.minLength.min) +
+                                " characters."
+                            ),
+                          ])
+                        : _vm._e(),
+                    ])
+                  : _vm._e(),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-12 col-sm-6 col-md-6 col-lg-6 mb-3" },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.$v.password.$model,
+                      expression: "$v.password.$model",
+                      modifiers: { trim: true },
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "password",
+                    name: "password",
+                    placeholder: "******",
+                  },
+                  domProps: { value: _vm.$v.password.$model },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.$v.password,
+                        "$model",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function ($event) {
+                      return _vm.$forceUpdate()
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _vm.$v.password.$dirty
+                  ? _c("div", [
+                      !_vm.$v.password.required
+                        ? _c("div", { staticClass: "required" }, [
+                            _vm._v("Field is required"),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.$v.password.minLength
+                        ? _c("div", { staticClass: "required" }, [
+                            _vm._v(
+                              "Password must have at least " +
+                                _vm._s(_vm.$v.password.$params.minLength.min) +
+                                " characters."
+                            ),
+                          ])
+                        : _vm._e(),
+                    ])
+                  : _vm._e(),
+              ]
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row p-2" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-success",
+                attrs: { type: "submit" },
+                on: {
+                  click: function ($event) {
+                    $event.preventDefault()
+                    return _vm.submitSignUp.apply(null, arguments)
+                  },
                 },
               },
-            },
-            [_vm._v("Submit")]
-          ),
+              [_vm._v("Login")]
+            ),
+          ]),
         ]),
       ]),
     ]),
@@ -1876,8 +601,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-4" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("h3", { staticClass: "center" }, [
+          _vm._v("Home Owner's Association Login"),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("label", { staticClass: "bolder" }, [
-      _vm._v("Full Name "),
+      _vm._v("Username "),
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
     ])
   },
@@ -1886,25 +623,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "bolder" }, [
-      _vm._v("Block "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "bolder" }, [
-      _vm._v("Lot "),
-      _c("span", { staticClass: "required" }, [_vm._v("*")]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "bolder" }, [
-      _vm._v("Signature "),
+      _vm._v("Password "),
       _c("span", { staticClass: "required" }, [_vm._v("*")]),
     ])
   },
@@ -1912,23 +631,6 @@ var staticRenderFns = [
 render._withStripped = true
 
 
-
-/***/ }),
-
-/***/ "./node_modules/vue-signature/src/main.js":
-/*!************************************************!*\
-  !*** ./node_modules/vue-signature/src/main.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _components_vueSignature_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/vueSignature.vue */ "./node_modules/vue-signature/src/components/vueSignature.vue");
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_components_vueSignature_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 

@@ -29,10 +29,23 @@ const Forms = Vue.component('Forms', (resolve) => {
       resolve(Forms.default);
     });
 });
+const Profile = Vue.component('Profile', (resolve) => {
+  import(/* webpackChunkName: "Profile" */'./components/Pages/Profile.vue')
+    .then((Profile) => {
+      resolve(Profile.default);
+    });
+});
 const TelcoRequest = Vue.component('TelcoRequest', (resolve) => {
   import(/* webpackChunkName: "TelcoRequest" */'./components/Pages/TelcoRequest.vue')
     .then((TelcoRequest) => {
       resolve(TelcoRequest.default);
+    });
+});
+//page not found
+const PageNotFound = Vue.component('PageNotFound', (resolve) => {
+  import(/* webpackChunkName: "PageNotFound" */'./components/Error/PageNotFound.vue')
+    .then((PageNotFound) => {
+      resolve(PageNotFound.default);
     });
 });
 
@@ -41,12 +54,19 @@ import VueRouter from 'vue-router';
 import VueToast from 'vue-toast-notification';
 import Vuelidate from 'vuelidate'
 import VueCookies from 'vue-cookies'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserGear } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(VueToast)
 Vue.use(Vuelidate)
 Vue.use(VueCookies)
+
+library.add(faUserGear)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.config.productionTip = false
 
 const router = new VueRouter({
         mode: 'history',
@@ -67,6 +87,11 @@ const router = new VueRouter({
                 component: Register
             },
             {
+                path: '/profile',
+                name: 'profile',
+                component: Profile
+            },
+            {
                 path: '/forms',
                 name: 'forms',
                 component: Forms
@@ -75,7 +100,12 @@ const router = new VueRouter({
                 path: '/telco-request',
                 name: 'telco_request',
                 component: TelcoRequest
-            }
+            },
+            {
+                path: '/*',
+                name: 'page_not_found',
+                component: PageNotFound,
+            },
         ]
 });
 
@@ -124,6 +154,33 @@ Vue.prototype.$ajaxPost = function(access_token, post_data, url, success_callbac
 
         }
     });
+}
+
+Vue.prototype.$error = function(error)
+{
+    this.$toast.error(error, {
+        position: 'top'
+    })
+    if (error.status == 401) {
+        setTimeout(() => {
+            window.location.href = '/login'
+        }, 1500)
+    }
+}
+
+Vue.prototype.$capitalizeFirstLetter = function(str)
+{
+    if (str) {
+        const arr = str.split(" ")
+
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1)
+
+        }
+
+        const str2 = arr.join(" ")
+        return str2
+    }
 }
 
 const app = new Vue({

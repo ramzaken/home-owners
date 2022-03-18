@@ -1,102 +1,84 @@
 <template>
-	<div class="row">
-		<div class="offset-lg-4 col-lg-4 offset-md-3 col-md-6">
-			<form id="telco-request-form">
-				<div class="row mb-3">
-					<div class="col-12">
-						<label class="bolder">Full Name <span class="required">*</span></label>
-						<input type="text" name="full_name" class="form-control" placeholder="John Doe" v-model.trim="$v.full_name.$model">
-						<div v-if="$v.full_name.$dirty">
-							<div class="required" v-if="!$v.full_name.required">Field is required</div>
-	  						<div class="required" v-if="!$v.full_name.minLength">Name must have at least {{$v.full_name.$params.minLength.min}} letters.</div>
-	  					</div>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<div class="col-4">
-						<label class="bolder">Block <span class="required">*</span></label>
-						<input type="number" name="block" class="form-control" v-model.trim="$v.block.$model">
-						<div v-if="$v.block.$dirty">
-							<div class="required" v-if="!$v.block.required">Field is required</div>
+	<div class="container">
+		<div class="row mb-4">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Login</li>
+                        <router-link :to="{ name: 'register' }" v-slot="{ href, navigate }">
+                            <li class="breadcrumb-item">
+                                <a :href="href" @click="navigate">Register</a>
+                            </li>
+                        </router-link>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h3 class="center">Home Owner's Association Login</h3>
+            </div>
+        </div>
+		<div class="row">
+			<div class="offset-lg-2 col-lg-8 offset-md-2 col-md-8">
+				<form id="login-form">
+					<div class="row">
+						<div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+							<label class="bolder">Username <span class="required">*</span></label>
+							<input type="text" name="name" class="form-control" placeholder="john.doe" v-model.trim="$v.name.$model">
+							<div v-if="$v.name.$dirty">
+								<div class="required" v-if="!$v.name.required">Field is required</div>
+	  							<div class="required" v-if="!$v.name.minLength">Username must have at least {{$v.name.$params.minLength.min}} characters.</div>
+		  					</div>
+						</div>
+						<div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-3">
+							<label class="bolder">Password <span class="required">*</span></label>
+							<input type="password" name="password" class="form-control" placeholder="******" v-model.trim="$v.password.$model">
+							<div v-if="$v.password.$dirty">
+								<div class="required" v-if="!$v.password.required">Field is required</div>
+	  							<div class="required" v-if="!$v.password.minLength">Password must have at least {{$v.password.$params.minLength.min}} characters.</div>
+		  					</div>
 						</div>
 					</div>
-					<div class="col-4">
-						<label class="bolder">Lot <span class="required">*</span></label>
-						<input type="number" name="lot" class="form-control" v-model.trim="$v.lot.$model">
-						<div v-if="$v.lot.$dirty">
-							<div class="required" v-if="!$v.lot.required">Field is required</div>
-						</div>
+					<div class="row p-2">
+						<button type="submit" class="btn btn-sm btn-success" @click.prevent="submitSignUp">Login</button>
 					</div>
-				</div>
-				<div class="row mb-3">
-					<div class="col-12">
-						<label class="bolder">Signature <span class="required">*</span></label>
-						<vueSignature 
-							ref="signature" 
-							:sigOption="option" 
-							:w="'300px'" 
-							:h="'200px'"
-							class="mb-2"
-						>
-						</vueSignature>
-						<button @click="clear" class="btn btn-sm btn-secondary">Clear</button>
-						<button @click="undo" class="btn btn-sm btn-warning">Undo</button>
-					</div>
-				</div>
-				<div class="row p-2">
-					<button type="submit" class="btn btn-sm btn-success" @click.prevent="submitSignUp">Submit</button>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
+    </div>
 </template>
 <script>
-import vueSignature from "vue-signature"
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, email } from 'vuelidate/lib/validators'
 
 export default {
     data: function() {
         return {
-            full_name: '',
-			block: '',
-			lot: '',
-			option:{
-				penColor:"#000000",
-				backgroundColor:"rgb(255,255,255)"
-			},
+            name: '',
+            password: ''
         }
     },
     validations: {
-		full_name: {
+    	name: {
 			required,
 			minLength: minLength(4)
 		},
-		block: {
-			required
-		},
-		lot: {
-			required
-		},
+		password: {
+			required,
+			minLength: minLength(6)
+		}
 	},
     mounted()
     {
 
     },
     components: {
-    	vueSignature
+
     },
     computed: {
 
     },
     methods: {
-		clear(e){
-			this.$refs.signature.clear()
-			e.preventDefault()
-		},
-		undo(e){
-			this.$refs.signature.undo()
-			e.preventDefault()
-		},
         submitSignUp(e){
         	this.$v.$touch()
 			if (this.$v.$invalid) {
@@ -104,35 +86,25 @@ export default {
 				    position: 'top'
 				})
 			} else {
-				setTimeout(() => {
-					var formData = new FormData()
-					formData.append('file', this.$refs.signature.save())
-					formData.append('full_name', this.full_name)
-					formData.append('block', this.block)
-					formData.append('lot', this.lot)
-
-					axios.post('/api/telco-request/submit', formData)
-					.then((response) => {
-						this.$toast.success('Your name has been listed.', {
-							position: 'top'
-						})
-
-						this.$v.$touch()
-            			this.$v.$reset()
-            			this.$refs.signature.clear()
-            			this.full_name 	=	''
-            			this.block 		=	''
-            			this.lot 		=	''
-            			
-					}).catch(error => {
-						this.$toast.error(error, {
-						    position: 'top'
-						})
-					});
-				}, 500)
+				const formData 	= 	{
+										name: this.name,
+										password: this.password
+									}
+				this.$ajaxPost(this.$cookies.get('access_token'), formData, '/api/auth/login', this.success, this.error)					
 			}
-
 			e.preventDefault()
+        },
+        success(response){
+			this.$cookies.set('access_token', response.auth.original.access_token, '30D', '/')
+
+			setTimeout(() => {
+				window.location.href = '/'
+			}, 1500)
+        },
+        error(error){
+			this.$toast.error(error, {
+			    position: 'top'
+			})
         }
     }
 }

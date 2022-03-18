@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Crypt;
 use DB;
 use Illuminate\Support\Str;
 use App\Models\GlobalModel;
+use App\Models\UserLocation;
+use App\Models\UserContact;
 
 
 class AuthController extends Controller
@@ -38,35 +40,30 @@ class AuthController extends Controller
             'name'      => 'required|max:255',
             'password'  => 'required|max:255|min:6'
         ]);
-        //if validator fails
         if ($validator->fails()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+
         $credentials    =   array(
-                            'name'      => $data['name'],
-                            'password'  => $data['password']
-                        );
-        // check if user is found in db
-        if (! $token = $this->guard()->attempt($credentials)) {
+                                        'name'      => $data['name'],
+                                        'password'  => $data['password']
+                                    );
+
+        if (!$token = $this->guard()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        // get user information
-        $user           =   User::getUserUsingUsername($data);
-        // update token
+
+        $user           =   User::getUserUsingName($data);
         $update_token   =   User::insertAccessToken($token, $user);
-        // audit trail
-        $data['number'] = $data['name'];
-        $data['module_name'] = 'Authentication';
-        $data['action'] = 'Login';
-        AuditTrail::trailLoginAndLogout($data,$user);
-        // get role access and permissions
-        $roles          =   UserRole::getUserRole($user->role_id);
-        if ($roles) {
-            $actions    =   json_decode($roles->actions);
-        }else{
-            $actions    =   [];
-        }
-        return $this->respondWithToken($token, $user, $roles, $actions);
+        
+        $array          =   $this->respondWithToken($token, $user);
+
+        $result         =   [
+                                'response'  =>  true,
+                                'auth'      =>  $array
+                            ];
+
+        return response()->json($result);
     }
 
     public function register(Request $request)
@@ -106,6 +103,23 @@ class AuthController extends Controller
                                     ];
             $user_id            =   GlobalModel::createData('users', $create_user);
 
+            $user_location      =   [
+                                        'user_id'           => $user_id,
+                                        'block'             => $data['block'],
+                                        'lot'               => $data['lot'],
+                                        'created_at'        => date('Y-m-d')
+                                    ];
+            
+            UserLocation::createUserLocation($user_location);
+
+            $user_contact       =   [
+                                        'user_id'           => $user_id,
+                                        'contact_number'    => $data['contact_number'],
+                                        'created_at'        => date('Y-m-d')
+                                    ];
+            
+            UserContact::createUserContact($user_contact);
+
             if ($user_id) {
                 $credentials    =   array(
                                         'name'      => $data['name'],
@@ -121,7 +135,7 @@ class AuthController extends Controller
                 // update token
                 $update_token   =   User::insertAccessToken($token, $user);
                 
-                $array          =   $this->respondWithTokenResetPassword($token, $user);
+                $array          =   $this->respondWithToken($token, $user);
                 return          [
                                     'response'  =>  true,
                                     'auth'      =>  $array
@@ -182,15 +196,15 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token, $user, $roles, $actions)
+    protected function respondWithToken($token, $user)
     {        
         return response()->json([
-                'access_token' => $token,
-                'token_type' => 'bearer',
-                'expires_in' => $this->guard()->factory()->getTTL() * 7200,
-                'status'     => $user->status,
-                'roles'      => $roles,
-                'actions'    => $actions
+                'access_token'  => $token,
+                'token_type'    => 'bearer',
+                'expires_in'    => $this->guard()->factory()->getTTL() * 7200,
+                'status'        => $user->status,
+                // 'roles'      => $roles,
+                // 'actions'    => $actions
             ]);
     }
 

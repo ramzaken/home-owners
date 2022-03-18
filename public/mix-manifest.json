@@ -4,6 +4,8 @@
     "/js/Login.js": "/js/Login.js",
     "/js/Register.js": "/js/Register.js",
     "/js/Forms.js": "/js/Forms.js",
+    "/js/Profile.js": "/js/Profile.js",
     "/js/TelcoRequest.js": "/js/TelcoRequest.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/PageNotFound.js": "/js/PageNotFound.js"
 }

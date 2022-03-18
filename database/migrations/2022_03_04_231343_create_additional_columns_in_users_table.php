@@ -18,12 +18,13 @@ class CreateAdditionalColumnsInUsersTable extends Migration
             $table->string('middle_name', 100)->after('first_name');
             $table->string('last_name', 100)->after('middle_name');
             $table->string('name_extension', 100)->nullable()->after('last_name');
-            $table->integer('role_id')->after('name_extension');
+            $table->date('birth_date')->nullable()->after('name_extension');
+            $table->integer('role_id')->after('birth_date');
             $table->integer('position_id')->after('role_id');
             $table->text('registered_ip')->after('position_id');
             $table->text('access_token')->after('registered_ip');
-            $table->integer('status')->after('registered_ip');
-            $table->integer('created_by')->after('created_at');
+            $table->integer('status')->after('access_token');
+            $table->integer('created_by')->after('status');
 
             $table->index(['role_id, position_id, created_by'], 'user_index');
         });

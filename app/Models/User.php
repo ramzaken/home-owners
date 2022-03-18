@@ -99,4 +99,20 @@ class User extends Authenticatable implements JWTSubject
                     ]);
     }
 
+    public static function updateUser($data)
+    {
+        return DB::table('users')
+                    ->where('id', $data['id'])
+                    ->update($data);
+    }
+
+    public static function updateAccessTokenToNull($user_id)
+    {
+        return DB::table('users')
+                    ->where('id', $user_id)
+                    ->update([
+                        'access_token'  =>  null
+                    ]);
+    }
+
 }

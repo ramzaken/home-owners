@@ -1,61 +1,36 @@
 <template>
         <div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <router-link :to="{name: 'home'}" class="navbar-brand">Home Owners Association</router-link>
-                    <button 
-                        class="navbar-toggler" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target="#navbarSupportedContent" 
-                        aria-controls="navbarSupportedContent" 
-                        aria-expanded="false" 
-                        aria-label="Toggle navigation"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <router-link :to="{name: 'forms'}" class="nav-link">Forms</router-link>
-                            </li>
-                        </ul>
-                    </div>
+            <aside-component></aside-component>
+            <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+                <navbar-component></navbar-component>
+                <div class="container-fluid py-4">
+                    <router-view></router-view>
                 </div>
-            </nav>
-            <div class="py-4">
-                <router-view></router-view>
-            </div>
+            </main>
         </div>
 </template>
 <script>
+import Aside from './Pages/aside/Aside.vue'
+import NavBar from './Pages/navbar/NavBar.vue'
 export default {
     data: function() {
         return {
-            name: '',
+
         }
     },
     mounted()
     {
-        this.checkUser();
+
     },
     components: {
+        'aside-component' : Aside,
+        'navbar-component' : NavBar
     },
     computed: {
 
     },
     methods: {
-        checkUser(){
-            this.$ajaxPost(this.$cookies.get('access_token'), {}, '/api/auth/user', this.success, this.error)
-        },
-        success(response){
-            this.telco_requests     =   response.data
-        },
-        error(error){
-            this.$toast.error(error, {
-                position: 'top'
-            })
-        }
+
     }
 }
 </script>
