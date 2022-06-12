@@ -115,4 +115,35 @@ class User extends Authenticatable implements JWTSubject
                     ]);
     }
 
+    public static function getUsers($data)
+    {
+        $table  =   DB::table('users as u');
+        $table  =   $table->select(
+                                'u.id',
+                                DB::raw('CONCAT(u.last_name,", ",u.first_name," ",u.middle_name) as name'),
+                                'u.email',
+                                'ul.block',
+                                'ul.lot',
+                                'uc.contact_number'
+                            );
+        $table  =   $table->leftJoin('user_locations as ul', 'u.id', '=', 'ul.user_id');
+        $table  =   $table->leftJoin('user_contacts as uc', 'u.id', '=', 'uc.user_id');
+        if ($data['sort_field'] == 'name' || $data['sort_field'] == 'email') {
+            $table  =   $table->orderBy('u.'.$data['sort_field'], $data['sort']);
+        }elseif ($data['sort_field'] == 'contact_number') {
+            $table  =   $table->orderBy('uc.'.$data['sort_field'], $data['sort']);
+        }else{
+            $table  =   $table->orderBy('ul.'.$data['sort_field'], $data['sort']);
+        }
+        $table  =   $table->offset($data['offset']);
+        $table  =   $table->limit($data['limit']);
+        $table  =   $table->get();
+        return $table;
+    }
+
+    public static function getTotalRecords(){
+        return DB::table('users')
+                    ->count();
+    }
+
 }

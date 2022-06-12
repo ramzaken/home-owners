@@ -5,7 +5,11 @@
     "/js/Register.js": "/js/Register.js",
     "/js/Forms.js": "/js/Forms.js",
     "/js/Profile.js": "/js/Profile.js",
+    "/js/Announcements.js": "/js/Announcements.js",
+    "/js/Guidelines.js": "/js/Guidelines.js",
+    "/js/AnnouncementConfiguration.js": "/js/AnnouncementConfiguration.js",
+    "/js/GuidelineConfiguration.js": "/js/GuidelineConfiguration.js",
     "/js/TelcoRequest.js": "/js/TelcoRequest.js",
-    "/css/app.css": "/css/app.css",
-    "/js/PageNotFound.js": "/js/PageNotFound.js"
+    "/js/PageNotFound.js": "/js/PageNotFound.js",
+    "/css/app.css": "/css/app.css"
 }

@@ -11,36 +11,34 @@
         <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white active bg-gradient-primary" href="./pages/dashboard.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">dashboard</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Dashboard</span>
-                    </a>
+                    <router-link :to="{name: 'home'}" v-slot="{ href, isExactActive, navigate }">
+                        <a :class="[isExactActive && 'active bg-gradient-primary'] +' nav-link text-white'" :href="href" @click="navigate">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10">dashboard</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Dashboard</span>
+                        </a>
+                    </router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="./pages/profile.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">person</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Profile</span>
-                    </a>
+                    <router-link :to="{name: 'announcements'}" v-slot="{ href, isExactActive, navigate }">
+                        <a :class="[isExactActive && 'active bg-gradient-primary'] +' nav-link text-white'" :href="href" @click="navigate">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10">announcement</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Announcements</span>
+                        </a>
+                    </router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="./pages/sign-in.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">login</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Sign In</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white " href="./pages/sign-up.html">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">assignment</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Sign Up</span>
-                    </a>
+                    <router-link :to="{name: 'guidelines'}" v-slot="{ href, isExactActive, navigate }">
+                        <a :class="[isExactActive && 'active bg-gradient-primary'] +' nav-link text-white'" :href="href" @click="navigate">
+                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="material-icons opacity-10">rule</i>
+                            </div>
+                            <span class="nav-link-text ms-1">Guidelines</span>
+                        </a>
+                    </router-link>
                 </li>
                 <li class="nav-item">
                     <router-link :to="{name: 'forms'}" class="nav-link text-white">
@@ -49,6 +47,30 @@
                         </div>
                         <span class="nav-link-text ms-1">Forms</span>
                     </router-link>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white " data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">settings</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Configurations</span>
+                    </a>
+                    <ul class="navbar-nav collapse" id="collapseExample">
+                        <li class="nav-item nav-child">
+                            <router-link :to="{name: 'announcement_configuration'}" v-slot="{ href, isExactActive, navigate }">
+                                <a :class="[isExactActive && 'active bg-gradient-primary'] +' nav-link text-white'" :href="href" @click="navigate">
+                                    <span class="nav-link-text ms-1">Announcements</span>
+                                </a>
+                            </router-link>
+                        </li>
+                        <li class="nav-item nav-child">
+                            <router-link :to="{name: 'guideline_configuration'}" v-slot="{ href, isExactActive, navigate }">
+                                <a :class="[isExactActive && 'active bg-gradient-primary'] +' nav-link text-white'" :href="href" @click="navigate">
+                                    <span class="nav-link-text ms-1">Guidelines</span>
+                                </a>
+                            </router-link>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -59,3 +81,28 @@
         </div>
     </aside>
 </template>
+<script>
+export default {
+    data: function() {
+        return {
+
+        }
+    },
+    mounted()
+    {
+
+    },
+    components: {
+
+    },
+    computed: {
+
+    },
+    methods: {
+        goToHome(e){
+            this.$router.push({ name: 'home'})
+            e.preventDefault()
+        }
+    }
+}
+</script>

@@ -10,6 +10,10 @@
 // toast
 @import '~vue-toast-notification/dist/theme-sugar.css';
 
+//vue good table
+@import '~vue-good-table/dist/vue-good-table.css';
+
+
 // global classes
 @import 'globals';
 
@@ -18,3 +22,9 @@
 
 // navbar
 @import 'navbars';
+
+// aside
+@import 'aside';
+
+// text editor
+@import 'text_editor';

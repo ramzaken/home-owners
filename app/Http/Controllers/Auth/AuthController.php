@@ -54,6 +54,7 @@ class AuthController extends Controller
         }
 
         $user           =   User::getUserUsingName($data);
+        
         $update_token   =   User::insertAccessToken($token, $user);
         
         $array          =   $this->respondWithToken($token, $user);
@@ -82,7 +83,8 @@ class AuthController extends Controller
             if ($validator->fails()) {
                 return  [
                             'response'  =>  false,
-                            'auth'      =>  []
+                            'auth'      =>  [],
+                            'loggedIn'  =>  false
                         ];
             }
 
@@ -155,8 +157,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function me(Request $request)
     {
+
         if ($this->guard()->user()->access_token) {
             
             return response()->json($this->guard()->user());
@@ -203,6 +206,8 @@ class AuthController extends Controller
                 'token_type'    => 'bearer',
                 'expires_in'    => $this->guard()->factory()->getTTL() * 7200,
                 'status'        => $user->status,
+                'user'          => $user,
+                'loggedIn'      =>  true
                 // 'roles'      => $roles,
                 // 'actions'    => $actions
             ]);
@@ -275,7 +280,9 @@ class AuthController extends Controller
                                 'access_token'  =>  $token,
                                 'token_type'    =>  'bearer',
                                 'expires_in'    =>  $this->guard()->factory()->getTTL() * 7200,
-                                'status'        =>  $user->status
+                                'status'        =>  $user->status,
+                                'user'          =>  $user,
+                                'loggedIn'      =>  true
                             ];
     }
 

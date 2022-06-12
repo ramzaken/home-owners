@@ -81,5 +81,22 @@ class UserController extends Controller
         return response()->json($result);
     }
     
+    public function getHomeOwners(Request $request)
+    {
+        $data       =   $request->all();
+        $params     =   [
+                            'offset'        =>  ($data['page'] - 1) * $data['perPage'],
+                            'limit'         =>  $data['perPage'],
+                            'sort_field'    =>  $data['sort'][0]['field'],
+                            'sort'          =>  $data['sort'][0]['type']
+                        ];
+        $homeOwners     =   User::getUsers($params);
+        $totalRecords   =   User::getTotalRecords();
+        $result         =   [
+                                'rows'          =>  $homeOwners,
+                                'totalRecords'  =>  $totalRecords
+                            ];
+        return response()->json($result);
+    }
     
 }

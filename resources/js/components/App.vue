@@ -6,12 +6,15 @@
                 <div class="container-fluid py-4">
                     <router-view></router-view>
                 </div>
+                <footer-section></footer-section>
             </main>
         </div>
 </template>
 <script>
 import Aside from './Pages/aside/Aside.vue'
 import NavBar from './Pages/navbar/NavBar.vue'
+import Footer from './Pages/footer/Footer'
+
 export default {
     data: function() {
         return {
@@ -24,7 +27,8 @@ export default {
     },
     components: {
         'aside-component' : Aside,
-        'navbar-component' : NavBar
+        'navbar-component' : NavBar,
+        'footer-section': Footer
     },
     computed: {
 

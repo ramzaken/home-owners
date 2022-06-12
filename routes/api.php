@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\TelcoRequestController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Configuration\GuidelineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,10 @@ Route::post('/user/updateUser/', [UserController::class, 'updateUser']);
 Route::post('/user/updateUserLocation/', [UserController::class, 'updateUserLocation']);
 Route::post('/user/updateUserContacts/', [UserController::class, 'updateUserContacts']);
 
+Route::post('/home-owners/getHomeOwners/', [UserController::class, 'getHomeOwners']);
 
+//configurations
+	//guidelines
+	Route::post('/configurations/guidelines/getGuidelines', [GuidelineController::class, 'getGuidelines']);
+	Route::post('/configurations/guidelines/imageAdded', [GuidelineController::class, 'imageAdded']);
+	Route::post('/configurations/guidelines/create', [GuidelineController::class, 'create']);
